@@ -1,13 +1,13 @@
 # coding:utf-8
-# author Bravestone
+# author z10mx7
 # version : 2.0.0
 from setuptools import find_packages, setup
 import os
 
 REQUIRES_PYTHON = '>=3.6.0'
 VERSION = '2.0.0'
-DESCRIPTION="A free and unlimited python tools for google translate api."
-NAME = "google_translate"
+DESCRIPTION="A free and unlimited python tool."
+NAME = "gooate"
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -31,13 +31,13 @@ setup(
     description=DESCRIPTION,
     long_description=readme,
     long_description_content_type="text/markdown",
-    author='Bravestone',
-    author_email='admin@zarena.me',
-    maintainer='Bravestone',
-    maintainer_email='admin@zarena.me',
+    author='z10mx7',
+    author_email='z10mx7@protonmail.com',
+    maintainer='z10mx7',
+    maintainer_email='z10mx7@protonmail.com',
     packages=find_packages(),
     platforms=["all"],
-    url='https://github.com/itsbravestone/google_translate',
+    url='https://github.com/z10mx7/gooate',
     include_package_data=True,
     license='MIT',
     classifiers=[
