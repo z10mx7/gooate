@@ -4,5 +4,5 @@
 __all__ = 'translator'
 __version__ = '2.0.0'
 
-from .google_translate import translator
+from .gooate import translator
 from .constant import DEFAULT_SERVICE_URLS, LANGUAGES

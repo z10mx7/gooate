@@ -1,7 +1,10 @@
 # coding:utf-8
 # author Bravestone
 # version : 2.0.0
-import json, requests, random, re
+import json
+import requests
+import random
+import re
 from urllib.parse import quote
 import urllib3
 import logging
@@ -12,11 +15,12 @@ log.addHandler(logging.NullHandler())
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-URLS_SUFFIX = [re.search('translate.google.(.*)', url.strip()).group(1) for url in DEFAULT_SERVICE_URLS]
+URLS_SUFFIX = [re.search('translate.google.(.*)', url.strip()).group(1)
+               for url in DEFAULT_SERVICE_URLS]
 URL_SUFFIX_DEFAULT = 'cn'
 
 
-class google_translateError(Exception):
+class gooateError(Exception):
     """Exception that uses context to present a meaningful error message"""
 
     def __init__(self, msg=None, **kwargs):
@@ -28,7 +32,7 @@ class google_translateError(Exception):
             self.msg = self.infer_msg(self.tts, self.rsp)
         else:
             self.msg = None
-        super(google_translateError, self).__init__(self.msg)
+        super(gooateError, self).__init__(self.msg)
 
     def infer_msg(self, tts, rsp=None):
         cause = "Unknown"
@@ -101,7 +105,8 @@ class translator:
         GOOGLE_TTS_RPC = ["MkEWBc"]
         parameter = [[text.strip(), lang_src, lang_tgt, True], [1]]
         escaped_parameter = json.dumps(parameter, separators=(',', ':'))
-        rpc = [[[random.choice(GOOGLE_TTS_RPC), escaped_parameter, None, "generic"]]]
+        rpc = [
+            [[random.choice(GOOGLE_TTS_RPC), escaped_parameter, None, "generic"]]]
         espaced_rpc = json.dumps(rpc, separators=(',', ':'))
         # text_urldecode = quote(text.strip())
         freq_initial = "f.req={}&".format(quote(espaced_rpc))
@@ -157,12 +162,12 @@ class translator:
                         if len(response) == 1:
                             if len(response[0]) > 5:
                                 sentences = response[0][5]
-                            else: ## only url
+                            else:  # only url
                                 sentences = response[0][0]
                                 if pronounce == False:
                                     return sentences
                                 elif pronounce == True:
-                                    return [sentences,None,None]
+                                    return [sentences, None, None]
                             translate_text = ""
                             for sentence in sentences:
                                 sentence = sentence[0]
@@ -191,10 +196,10 @@ class translator:
             raise e
         except requests.exceptions.HTTPError as e:
             # Request successful, bad response
-            raise google_translateError(tts=self, response=r)
+            raise gooateError(tts=self, response=r)
         except requests.exceptions.RequestException as e:
             # Request failed
-            raise google_translateError(tts=self)
+            raise gooateError(tts=self)
 
     def detect(self, text):
         text = str(text)
@@ -244,8 +249,8 @@ class translator:
         except requests.exceptions.HTTPError as e:
             # Request successful, bad response
             log.debug(str(e))
-            raise google_translateError(tts=self, response=r)
+            raise gooateError(tts=self, response=r)
         except requests.exceptions.RequestException as e:
             # Request failed
             log.debug(str(e))
-            raise google_translateError(tts=self)
+            raise gooateError(tts=self)
