@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 import os
 
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 DESCRIPTION="A free and unlimited python tool."
 NAME = "gooate"
 
